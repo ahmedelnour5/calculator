@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  background-color: #fbeaff;
+  min-height: 100vh;
+  max-width: 1100px;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  background-color: #b39cd0;
+  width: 420px;
+  height: 600px;
+  padding: 25px;
+  border-radius: 45px;
+  margin: 100px auto;
+  border: 2px solid black;
+}
+
+.screen {
+  background-color: white;
+  grid-column: span 4;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 30px;
+}
+
+.clear-button {
+  grid-column: span 2;
+  background-color: #ff8066;
+}
+
+.delete-button {
+  grid-column: span 2;
+  background-color: #00c9a7;
+}
+
+.edit-keys {
+  border-radius: 15px;
+  padding: 0.3rem;
+  font-size: 1.3rem;
+  margin: 5px;
+}
+.edit-keys:hover {
+  transform: scale(1.1);
+}
+.keys {
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 0.2rem;
+  background-color: #d8d5d2;
+  font-size: 1rem;
+}
+
+.keys:hover {
+  transform: scale(1.1);
+}
