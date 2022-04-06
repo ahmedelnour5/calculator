@@ -19,7 +19,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
   background-color: #b39cd0;
-  width: 420px;
+  width: 400px;
   height: 600px;
   padding: 20px;
   border-radius: 45px;
@@ -62,10 +62,29 @@ body {
   border: 2px solid black;
   border-radius: 12px;
   padding: 5px;
-  background-color: #fdf7ff;
+  background-color: #fef6ff;
   font-size: 1.3rem;
 }
 
 .keys:hover {
   transform: scale(1.1);
+}
+
+.operators,
+.equal {
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: #fef6ff;
+  font-size: 1.3rem;
+}
+
+.operators:hover,
+.equal:hover {
+  transform: scale(1.1);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
 }
