@@ -7,63 +7,106 @@ let currentOperation = null;
 //should screen be reset
 let shouldResetScreen = false;
 
-let operate = (a, operator, b) => {
-  Number(a);
-  Number(b);
-
-  if (operator == "+") {
-    operation = add(a, b);
-  } else if (operator == "*") {
-    operation = multiply(a, b);
-  } else if (operator == "-") {
-    operation = subtract(a, b);
-  } else {
-    operation = divide(a, b);
-  }
-  return (screen.innerText = operation);
-};
-
 //select screen display element
-let screen = document.querySelector(".screen");
+const currentOpScreen = document.querySelector(".current-operation");
+
+//select element to display the last operation
+const lastOpScreen = document.querySelector(".last-operation");
 
 //select all calculator number keys
 let numberKeys = document.querySelectorAll(".keys");
 
-//variable for value displayed on the screen
-let screenValue = "";
 //select operator elements
-let operators = document.querySelectorAll(".operators");
+const operators = document.querySelectorAll(".operators");
 
 //clear display element
-let clear = document.querySelector(".clear-button");
-//reset screen
-let reset = () => {
-  screen.innerText = "";
-};
-//event listener to clear display
-clear.addEventListener("click", reset);
+const clearBtn = document.querySelector(".clear-button");
 
-//create variable for operator
-let operator;
+//select equal sign element
+const equalSign = document.querySelector(".equal");
 
-//addEventListeners to number keys
+//select delete button
+const deleteBtn = document.querySelector(".delete-button");
+
+//listen for click on clear
+clearBtn.addEventListener("click", clear);
+
+//listen for click on equal
+equalSign.addEventListener("click", evaluate);
+
+//Listen for click on number keys
 numberKeys.forEach((key) => {
-  key.addEventListener("click", (e) => {
-    screen.innerText += e.target.innerText;
-  });
+  key.addEventListener("click", () => append(key.innerText));
 });
 
-screenValue += screen.innerText;
-screen.innerText = "";
-operators.forEach((op) => {
-  op.addEventListener("click", (e) => {
-    operator = e.target.innerText;
-    secondNumber += screen.innerText;
-    console.log(secondNumber);
-  });
+//listen for click on operators
+operators.forEach((operator) => {
+  operator.addEventListener("click", () => setOperation(operator.innerText));
 });
 
-let equalSign = document.querySelector(".equal");
+deleteBtn.addEventListener("click", del);
+
+function setOperation(operator) {
+  firstOperand = currentOpScreen.innerText;
+  currentOperation = operator;
+  lastOpScreen.innerText = `${firstOperand} ${currentOperation}`;
+  shouldResetScreen = true;
+}
+
+function append(number) {
+  if (currentOpScreen.innerText == "0" || shouldResetScreen) {
+    resetScreen();
+  }
+  currentOpScreen.innerText += number;
+}
+
+// delete function
+function del() {
+  currentOpScreen.innerText = currentOpScreen.innerText.toString().slice(0, -1);
+}
+//reset screen
+function resetScreen() {
+  currentOpScreen.innerText = "";
+  shouldResetScreen = false;
+}
+
+//clear calculator when clear button clicked
+function clear() {
+  currentOpScreen.innerText = "0";
+  firstOperand = "";
+  secondOperand = "";
+  currentOperation = null;
+}
+
+//function to evaluate experession
+function evaluate() {
+  secondOperand = currentOpScreen.innerText;
+  lastOpScreen.innerText = `${firstOperand} ${currentOperation} ${secondOperand}=`;
+  currentOpScreen.innerText = operate(
+    firstOperand,
+    currentOperation,
+    secondOperand
+  );
+}
+
+//function to perform operations based on selected operator
+let operate = (a, operator, b) => {
+  a = Number(a);
+  b = Number(b);
+
+  switch (operator) {
+    case "+":
+      return add(a, b);
+    case "x":
+      return multiply(a, b);
+    case "-":
+      return subtract(a, b);
+    case "÷":
+      return divide(a, b);
+    default:
+      return null;
+  }
+};
 
 //function for addition
 let add = (a, b) => {
